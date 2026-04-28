@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda Online Karen</title>
+  <style>
+    *{box-sizing:border-box}
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background: linear-gradient(180deg, #ffe4ec, #fff0f6); }
+    header { background: linear-gradient(90deg, #ff85a2, #ffb6c1); color: white; padding: 25px; text-align: center; }
+    footer { background: #ff85a2; color: white; padding: 15px; text-align: center; }
+    nav { background: #ffb6c1; padding: 12px; text-align: center; }
+    nav a { color: white; margin: 0 12px; text-decoration: none; font-weight:bold; }
+    section { padding: 25px; }
+    .banner { text-align:center; padding:30px; background:white; border-radius:20px; margin:20px; box-shadow:0 4px 15px rgba(0,0,0,.1); }
+    .banner h2 { color:#ff4f81; }
+    .productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .producto { background:white; border-radius:20px; padding: 15px; text-align: center; box-shadow:0 4px 12px rgba(0,0,0,.1); transition: transform .2s; }
+    .producto:hover { transform: scale(1.05); }
+    .producto img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; }
+    .producto h3 { color:#ff4f81; }
+    button { padding: 10px 14px; border:none; border-radius:20px; background:#ff4f81; color:white; cursor: pointer; font-weight:bold; }
+    button:hover{ background:#ff2f6d; }
+    #carritoLista li { margin: 8px 0; }
+    .redes a { color: white; margin: 0 8px; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💖 Glam Shop 💖</h1>
+    <p>Moda, accesorios y estilo para ti ✨</p>
+  </header>  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#carrito">Carrito</a>
+    <a href="#contacto">Contacto</a>
+  </nav>  <section id="inicio">
+    <div class="banner">
+      <h2>Bienvenida hermosa 💕</h2>
+      <p>Encuentra ropa, accesorios y productos de belleza con promociones increíbles.</p>
+      <p><strong>Promoción:</strong> 20% de descuento en tu primera compra.</p>
+    </div>
+  </section>  <section id="catalogo">
+    <h2 style="color:#ff4f81;">Catálogo de Productos 🛍️</h2>
+    <div class="productos" id="productos"></div>
+  </section>  <section id="carrito">
+    <h2 style="color:#ff4f81;">Carrito de Compras 🛒</h2>
+    <ul id="carritoLista"></ul>
+    <h3>Total: $<span id="total">0</span></h3>
+    <button onclick="pagar()">Comprar ahora 💖</button>
+  </section>  <section id="contacto">
+    <h2 style="color:#ff4f81;">Contacto 📞</h2>
+    <p>Correo: glamshop@correo.com</p>
+    <p>Teléfono: 55 1234 5678</p>
+  </section>  <footer>
+    <p>© 2026 Glam Shop | Todos los derechos reservados</p>
+    <div class="redes">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+    </div>
+  </footer>  <script>
+    const productos = [
+      { nombre: 'Blusa elegante', precio: 250, img: 'blusa.jpg' },
+      { nombre: 'Pantalón casual', precio: 400, img: 'pantalon.jpg' },
+      { nombre: 'Vestido rosa', precio: 550, img: 'vestido.jpg' },
+      { nombre: 'Bolsa moderna', precio: 300, img: 'bolsa.jpg' },
+      { nombre: 'Tacones', precio: 600, img: 'tacones.jpg' },
+      { nombre: 'Aretes', precio: 120, img: 'aretes.jpg' },
+      { nombre: 'Collar', precio: 150, img: 'collar.jpg' },
+      { nombre: 'Perfume', precio: 450, img: 'perfume.jpg' },
+      { nombre: 'Reloj', precio: 700, img: 'reloj.jpg' },
+      { nombre: 'Sudadera', precio: 500, img: 'sudadera.jpg' }
+    ];
+
+    let carrito = [];
+
+    function mostrarProductos() {
+      const contenedor = document.getElementById('productos');
+      contenedor.innerHTML = '';
+      productos.forEach((producto, index) => {
+        contenedor.innerHTML += `
+          <div class="producto">
+            <img src="${producto.img}" alt="${producto.nombre}">
+            <h3>${producto.nombre}</h3>
+            <p>$${producto.precio}</p>
+            <button onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
+          </div>`;
+      });
+    }
+
+    function agregarAlCarrito(index) {
+      carrito.push(productos[index]);
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('carritoLista');
+      const total = document.getElementById('total');
+      lista.innerHTML = '';
+      let suma = 0;
+      carrito.forEach(producto => {
+        lista.innerHTML += `<li>${producto.nombre} - $${producto.precio}</li>`;
+        suma += producto.precio;
+      });
+      total.textContent = suma;
+    }
+
+    function pagar() {
+      alert('Gracias por tu compra hermosa 💕✨');
+      carrito = [];
+      actualizarCarrito();
+    }
+
+    mostrarProductos();
+  </script></body>
+</html>
